@@ -14,6 +14,7 @@ public class Coach extends CoachConnectUser{
 	private Level[] levelsObjectArray;//we have this field because the array of levels will be passed to the backend in the request body as a string array and we need a way to accept it before we transfer the values to an arraylist
 	private List<String> levels = new ArrayList<>();
 	private int yearsOfExperience;
+	private double ustaRating;
 	private String bio;
 	private String location;//city, state format
 	
@@ -21,13 +22,14 @@ public class Coach extends CoachConnectUser{
 		super();
 		this.setRole("COACH");
 	}
-	public Coach(String firstName, String lastName, String email, String password, Level[] levelsObjectArray, int yearsOfExperience, String bio, String location) {
+	public Coach(String firstName, String lastName, String email, String password, Level[] levelsObjectArray, int yearsOfExperience, double ustaRating, String bio, String location) {
 		super(firstName, lastName, email, password, "COACH");
 		
 		for(Level level : levelsObjectArray) {//javascript frontend will pass the levels as a string array, but we want the coaches to be able to update their info so its better as an arraylist
 			this.levels.add(level.getValue());
 		}
 		this.yearsOfExperience = yearsOfExperience;
+		this.ustaRating = ustaRating;
 		this.bio = bio;
 		this.location = location;
 	}
@@ -43,6 +45,13 @@ public class Coach extends CoachConnectUser{
 	public void setYearsOfExperience(int yearsOfExperience) {
 		this.yearsOfExperience = yearsOfExperience;
 	}
+	
+	public double getUstaRating() {
+		return ustaRating;
+	}
+	public void setUstaRating(double ustaRating) {
+		this.ustaRating = ustaRating;
+	}
 	public String getBio() {
 		return bio;
 	}
@@ -57,6 +66,9 @@ public class Coach extends CoachConnectUser{
 	}
 	public Level[] getLevelsObjectArray() {
 		return this.levelsObjectArray;
+	}
+	public void setLevelsObjectArray(Level[] levelsObjectArray) {
+		this.levelsObjectArray = levelsObjectArray;
 	}
 	
 }
