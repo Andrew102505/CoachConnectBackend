@@ -22,11 +22,15 @@ public class CustomerLoginController {
 	
 	@PostMapping("/")
 	public Customer AuthenticateCoach(@RequestBody LoginRequestToken token) {//we make an object LoginRequestToken so that we can store the username and password in the body of the request rather than the url params, we have to pass info an object if we want to pass it in the request body
+		System.out.println("here----------------------");
+		System.out.println(token.getEmail());
+		System.out.println(token.getPassword());
 		//token contains email and password
 		//what do we need to return the user in this method so we can have access to the user object 
 		//however we will build out the rest of the application and come back to the login to see what we need
 		Customer c = customerRepository.getCustomerByEmail(token.getEmail());
-		if(c!=null && c.getPassword()==token.getPassword()) {
+		
+		if(c!=null && c.getPassword().equals(token.getPassword())) {
 			return c;//returns the user
 		}else {
 			throw new ResourceNotFoundException("Customer", "username", c.getEmail());

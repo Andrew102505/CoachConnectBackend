@@ -22,7 +22,7 @@ public class CoachLoginController {
 	@PostMapping("/")
 	public Coach AuthenticateCoach(@RequestBody LoginRequestToken token) {
 		Coach c = coachRepository.getCoachByEmail(token.getEmail());
-		if(c!=null&&c.getPassword()==token.getPassword()) {//token .getPassword is the password entered by the user in the login form
+		if(c!=null&&c.getPassword().equals(token.getPassword())) {//token .getPassword is the password entered by the user in the login form
 			return c;
 		}else {
 			throw new ResourceNotFoundException("Coach", "username", c.getEmail());
