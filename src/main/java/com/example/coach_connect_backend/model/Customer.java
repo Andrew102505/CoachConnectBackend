@@ -16,4 +16,6 @@ public class Customer extends CoachConnectUser{
 		super(firstName, lastName, email, password, "CUSTOMER");
 		
 	}
+	
+	
 }
