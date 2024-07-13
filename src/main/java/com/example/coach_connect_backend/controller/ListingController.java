@@ -34,6 +34,7 @@ public class ListingController {
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<Listing> getListingById(@PathVariable int id){
+		System.out.println("here--------------");
 		Listing l = listingRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException("Listing", "Id", id));
 		return ResponseEntity.ok(l);

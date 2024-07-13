@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.coach_connect_backend.exceptions.ResourceNotFoundException;
+import com.example.coach_connect_backend.model.Customer;
 import com.example.coach_connect_backend.model.Session;
 import com.example.coach_connect_backend.repository.SessionRepository;
 
@@ -31,10 +32,10 @@ public class SessionController {
 		return sessionRepository.save(s);
 	}
 	
-	@GetMapping("/{id}")//this method will get a specific session by the session id
-	public ResponseEntity<Session> getSessionById(@PathVariable int id){
-		Session s = sessionRepository.findById(id).orElseThrow(
-				() -> new ResourceNotFoundException("Session", "Id", id)
+	@GetMapping("/{sessionId}")//this method will get a specific session by the session id
+	public ResponseEntity<Session> getSessionById(@PathVariable int sessionId){
+		Session s = sessionRepository.findById(sessionId).orElseThrow(
+				() -> new ResourceNotFoundException("Session", "Id", sessionId)
 				);
 		return ResponseEntity.ok(s);
 	}
@@ -45,4 +46,8 @@ public class SessionController {
 		return ResponseEntity.ok(sessionRepository.getListingSessions(listingId));
 	}
 	
+	/*@PostMapping("/addParticipant")
+	public ResponseEntity<Customer> addParticipantToSession(@RequestBody Customer customer){
+		
+	}*/
 }
