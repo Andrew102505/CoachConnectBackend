@@ -34,6 +34,9 @@ public class Session {
 		this.numParticipants = 0;//will always start at 0
 		this.capacity = capacity;
 	}
+	public int getId() {
+		return id;
+	}
 	public String getTime() {
 		return time;
 	}
@@ -64,5 +67,15 @@ public class Session {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+	public List<Customer> getParticipants() {
+		return participants;
+	}
+	public void setParticipants(List<Customer> participants) {
+		this.participants = participants;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 }

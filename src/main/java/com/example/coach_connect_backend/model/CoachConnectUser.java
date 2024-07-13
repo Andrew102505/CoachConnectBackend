@@ -68,6 +68,11 @@ public class CoachConnectUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	@Override
+	public String toString() {
+		return "CoachConnectUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", role=" + role + "]";
+	}
 	
 	
 }

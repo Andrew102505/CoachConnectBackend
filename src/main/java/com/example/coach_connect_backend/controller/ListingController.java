@@ -38,6 +38,11 @@ public class ListingController {
 		Listing l = listingRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException("Listing", "Id", id));
 		return ResponseEntity.ok(l);
+	} 
+	@GetMapping("/coachlistings/{coachId}")
+	public ResponseEntity<List<Listing>> getAllCoachListings(@PathVariable int coachId){
+		
+		return ResponseEntity.ok(listingRepository.getAllListingsByCoachId(coachId));
 	}
 	
 }
