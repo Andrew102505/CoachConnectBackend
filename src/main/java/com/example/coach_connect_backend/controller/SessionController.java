@@ -69,9 +69,17 @@ public class SessionController {
 		return ResponseEntity.ok(s.getParticipants());
 		
 	}
-	@GetMapping("/getsessionparticipants/{sessionId}")
+	/*@GetMapping("/getsessionparticipants/{sessionId}")
 	public ResponseEntity<List<Customer>> getSessionParticipants(@PathVariable int sessionId){
 		List<Customer> participants = sessionRepository.getParticipantsBySessionId(sessionId);
+		return ResponseEntity.ok(participants); 
+	}*/
+	@GetMapping("/getsessionparticipants/{sessionId}")
+	public ResponseEntity<List<Customer>> getSessionParticipants(@PathVariable int sessionId){
+		Session s = sessionRepository.findById(sessionId).orElseThrow(
+				() -> new ResourceNotFoundException("Session", "Id", sessionId)
+				);
+		List<Customer> participants = s.getParticipants();
 		return ResponseEntity.ok(participants); 
 	}
 	/*@GetMapping("/participants/{id}")
