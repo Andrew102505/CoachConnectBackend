@@ -63,8 +63,9 @@ public class SessionController {
 				() -> new ResourceNotFoundException("Customer", "Id", customer.getId())
 				);
 		s.getParticipants().add(c);
-		
-		sessionRepository.save(s);
+		//increasing the session enrollment by 1(number of participants signed up)
+		s.setNumParticipants(s.getNumParticipants() + 1);
+		sessionRepository.save(s);//saving the updated session since its arraylist of customer participants was changed and the session's number of participants increased
 		System.out.println(s.getParticipants());
 		return ResponseEntity.ok(s.getParticipants());
 		
@@ -81,6 +82,18 @@ public class SessionController {
 				);
 		List<Customer> participants = s.getParticipants();
 		return ResponseEntity.ok(participants);
+	}
+	//remember params in a post request are not displayed in the url in the browser
+	@PostMapping("/containsparticipant/{sessionId}/{customerId}")
+	public boolean containsParticipant(@PathVariable int sessionId, @PathVariable int customerId) {
+		Session s = sessionRepository.findById(sessionId).orElseThrow(
+				() -> new ResourceNotFoundException("Session", "Id", sessionId)
+				);
+		Customer c = customerRepository.findById(customerId).orElseThrow(
+				() -> new ResourceNotFoundException("Customer", "Id", customerId)
+				);
+		
+		return s.getParticipants().contains(c);
 	}
 	/*@GetMapping("/participants/{id}")
 	public ResponseEntity<List<Customer>> addParticipantToSession(@PathVariable int sessionId){
