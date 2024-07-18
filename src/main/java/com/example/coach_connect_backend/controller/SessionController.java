@@ -1,5 +1,6 @@
 package com.example.coach_connect_backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,20 @@ public class SessionController {
 				);
 		return ResponseEntity.ok(s);
 	}
-	
+	@GetMapping("/participantsessions/{customerId}")//returns all the sessions that a participant is in
+	public ResponseEntity<List<Session>> getParticipantSessions(@PathVariable int customerId){
+		List<Session> sessions = sessionRepository.findAll();
+		List<Session> customerSessions = new ArrayList<>();
+		for(Session session : sessions) {
+			for(int i = 0; i<session.getParticipants().size(); i++) {
+				if(session.getParticipants().get(i).getId()==customerId) {
+					customerSessions.add(session);
+				}
+			}
+		}
+		System.out.println(customerSessions);
+		return ResponseEntity.ok(customerSessions);
+	}
 	@GetMapping("/listingsessions/{listingId}")//will get all of the sessions for a listing with the listing id
 	public ResponseEntity<List<Session>> getListingSessions(@PathVariable int listingId){
 		//dont need to check if the list is null because it's possible that a coach hasn't added any sessions to his/her listings yet
