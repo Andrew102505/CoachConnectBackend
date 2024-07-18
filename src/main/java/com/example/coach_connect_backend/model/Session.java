@@ -22,17 +22,21 @@ public class Session {
 	//number of participants signed up, this will change as people sign up
 	private int numParticipants;
 	private int capacity;
+	private String name;
+	private String title;
 	@ManyToMany
 	private List<Customer> participants = new ArrayList<>();
 	public Session() {
 		super();
 	}
-	public Session(String time, String date, int listingId, int capacity) {
+	public Session(String time, String date, int listingId, int capacity, String name, String title) {
 		this.time = time;
 		this.date = date;
 		this.listingId = listingId;
 		this.numParticipants = 0;//will always start at 0
 		this.capacity = capacity;
+		this.name = name;
+		this.title = title;
 	}
 	public int getId() {
 		return id;
@@ -75,6 +79,19 @@ public class Session {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

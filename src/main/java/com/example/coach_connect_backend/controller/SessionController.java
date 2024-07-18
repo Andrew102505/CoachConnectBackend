@@ -33,7 +33,7 @@ public class SessionController {
 	@PostMapping("/")
 	public Session createSession(@RequestBody Session session) {
 		System.out.println("here-------------");
-		Session s = new Session(session.getTime(), session.getDate(), session.getListingId(), session.getCapacity());
+		Session s = new Session(session.getTime(), session.getDate(), session.getListingId(), session.getCapacity(), session.getName(), session.getTitle());
 		return sessionRepository.save(s);
 	}
 	
