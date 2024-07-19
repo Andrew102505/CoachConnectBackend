@@ -25,7 +25,7 @@ public class ListingController {
 	@PostMapping("/")
 	public Listing createListing(@RequestBody Listing listing) {
 		Listing l = new Listing(listing.getTitle(), listing.getDescription(), listing.getType(), 
-				listing.getPrice(), listing.getLocation(), listing.getCoach());
+				listing.getPrice(), listing.getLocation(), listing.getCoach(), listing.getAddress());
 		 return listingRepository.save(l);
 	}
 	@GetMapping("/")

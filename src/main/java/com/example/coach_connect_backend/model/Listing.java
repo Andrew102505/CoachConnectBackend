@@ -22,6 +22,7 @@ public class Listing {
 	//private String image;//url of image;
 	private double price;
 	private String location;
+	private String address;
 	@ManyToOne
 	private Coach coach;//id of the coach who is running this listing
 	//only make the list of participants accessible to the coach and admin
@@ -33,14 +34,16 @@ public class Listing {
 		super();
 	}
 	//when allowing the coach to add sessions make a button called add session that elicits a function call for a create session component to be shown. This is done by conditional rednering the function called will change a state var from false to true; when false the popup will not be shown
-	public Listing(String title, String description, String type, double price,/*String image,*/ String location, Coach coach) {
+	public Listing(String title, String description, String type, double price,/*String image,*/ String location, Coach coach, String address) {
 		this.title = title;
 		this.description = description;
 		this.type = type;
 		this.price = price;
 		this.location = location;
 		this.coach = coach;
+		this.address = address;
 	}
+	
 	//on the listing details we will display each session with map function
 	//we will add a button on each which will fire a function and that session id to the array
 	//make the array use state so it can be updated
@@ -96,7 +99,12 @@ public class Listing {
 		this.coach = coach;
 	}
 	
-	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 	
 	
