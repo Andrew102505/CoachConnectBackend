@@ -15,7 +15,7 @@ import com.example.coach_connect_backend.repository.CoachConnectAdminRepository;
 //requests that have an origin of localhost:3000 are allowed
 @CrossOrigin(origins = "http://localhost:3000")//have to add this because spring blocks cross site request mappings if if don't specify which origins we will allow requests from
 @RestController
-@RequestMapping("/coachconnect/coachconnect/admin")
+@RequestMapping("/coachconnect/admin")
 public class CoachConnectAdminController {
 	@Autowired
 	private CoachConnectAdminRepository coachConnectAdminRepository;

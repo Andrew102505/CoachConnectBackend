@@ -2,9 +2,11 @@ package com.example.coach_connect_backend.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.coach_connect_backend.exceptions.ResourceNotFoundException;
 import com.example.coach_connect_backend.model.Listing;
+import com.example.coach_connect_backend.model.Session;
 import com.example.coach_connect_backend.repository.ListingRepository;
+import com.example.coach_connect_backend.repository.SessionRepository;
 @CrossOrigin(origins = "http://localhost:3000")//have to add this because spring blocks cross site request mappings if if don't specify which origins we will allow requests from
 @RestController
 @RequestMapping("/coachconnect/listing")
 public class ListingController {
 	@Autowired
 	private ListingRepository listingRepository;
+	@Autowired
+	private SessionRepository sessionRepository;
 	
 	@PostMapping("/")
 	public Listing createListing(@RequestBody Listing listing) {
@@ -44,5 +50,14 @@ public class ListingController {
 		
 		return ResponseEntity.ok(listingRepository.getAllListingsByCoachId(coachId));
 	}
-	
+	@DeleteMapping("/deletelisting/{listingId}")
+	public void deleteListing(@PathVariable int listingId) {
+		Listing l = listingRepository.findById(listingId).orElseThrow(
+				() -> new ResourceNotFoundException("Listing", "Id", listingId));
+		List<Session> listingSessions = sessionRepository.getListingSessions(l.getId());
+		for(int i = 0; i<listingSessions.size(); i++) {
+			sessionRepository.delete(listingSessions.get(i));
+		}
+		listingRepository.delete(l);
+	}
 }
