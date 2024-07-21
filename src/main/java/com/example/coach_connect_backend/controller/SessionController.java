@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -108,6 +109,14 @@ public class SessionController {
 				);
 		
 		return s.getParticipants().contains(c);
+	}
+	@DeleteMapping("/deletesession/{sessionId}")
+	public void deleteSession(@PathVariable int sessionId){
+		Session s = sessionRepository.findById(sessionId).orElseThrow(
+				() -> new ResourceNotFoundException("Session", "Id", sessionId)
+				);
+		sessionRepository.delete(s);
+		
 	}
 	/*@GetMapping("/participants/{id}")
 	public ResponseEntity<List<Customer>> addParticipantToSession(@PathVariable int sessionId){

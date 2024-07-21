@@ -24,7 +24,7 @@ public class AdminLoginController {
 	public CoachConnectAdmin AuthenticateAdmin(@RequestBody LoginRequestToken token) {
 		
 		CoachConnectAdmin a = adminRepository.getAdminByEmail(token.getEmail());
-		if(a!=null && a.getPassword()==token.getPassword()) {
+		if(a!=null && a.getPassword().equals(token.getPassword())) {
 			return a;
 		}else {
 			throw new ResourceNotFoundException("CoachConnectAdmin", "username", a.getEmail());
